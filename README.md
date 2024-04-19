@@ -2,6 +2,8 @@
 
 This is a lightweight, fast Vanilla-javascript based BusinessCalculator script, with fully customizable elements.
 
+You can find a working demu in the [index.html](index.html) file.
+
 ## Usage
 The calculator has one dependency, which is the **FontAwesome** iconset. You can specify with a flag if you want to use the **Pro**, or the **Free version**. Regardless, the CSS file/font files for FontAwesome has to be included in order for the icons to display correctly.
 
