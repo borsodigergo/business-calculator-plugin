@@ -359,30 +359,30 @@ enum BC_Currency_Orientation{
     "AFTER_TEXT"
 }
 interface BC_Tooltip {
-	icon: string
-	text: string
+    icon: string
+    text: string
     ariaLabel: string
 }
 interface BC_Slider {
-	min?: number
-	max?: number
+    min?: number
+    max?: number
     step?: number
 }
 interface BC_Industry {
-	text: string
-	percentage: number
+    text: string
+    percentage: number
 }
 interface BC_Growth_Button {
-	text: string
-	multiplier: number
+    text: string
+    multiplier: number
 }
 interface BC_Breakdown {
-	text: string
-	percentage: number
+    text: string
+    percentage: number
 }
 interface BC_Button {
-	text: string
-	href: string
+    text: string
+    href: string
 }
 ```
 
