@@ -302,20 +302,20 @@ The constructor's syntax is as follows:
 
 ### Typescript
 
-If you want to use this calculator inside a typescript project, you can do so by using the `.ts` version of the calculator.
+If you want to use this calculator inside a typescript project, you can do so by using the `.ts` version of the calculator. The BC_Options interface describes the object you pass to the constructor (whose properties are detailed in the table above).
 Typing informations for the typescript version:
 ```ts
 interface BC_Options {
 	root: HTMLElement | null
 	heading?: string
-    currency?: string,
-    currencyOrientation?: BC_Currency_Orientation,
+    currency?: string
+    currencyOrientation?: BC_Currency_Orientation
 	colors?: {
 		primary?: string
 		secondary?: string
-		third?: string,
-        background?: string,
-        foreground?: string,
+		third?: string
+        background?: string
+        foreground?: string
         foregroundAlternative?: string
 	}
 	input?: {
