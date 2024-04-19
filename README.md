@@ -306,53 +306,53 @@ If you want to use this calculator inside a typescript project, you can do so by
 Typing informations for the typescript version:
 ```ts
 interface BC_Options {
-	root: HTMLElement | null
-	heading?: string
+    root: HTMLElement | null
+    heading?: string
     currency?: string
     currencyOrientation?: BC_Currency_Orientation
-	colors?: {
-		primary?: string
-		secondary?: string
-		third?: string
+    colors?: {
+        primary?: string
+        secondary?: string
+        third?: string
         background?: string
         foreground?: string
         foregroundAlternative?: string
-	}
-	input?: {
-		monthlyRevenue?: {
-			heading?: string
-			tooltip?: BC_Tooltip
-			slider?: BC_Slider
-		}
-		industry: {
-			heading?: string
-			tooltip?: BC_Tooltip
-			industries: BC_Industry[]
-		}
-		growth: {
-			heading?: string
-			tooltip?: BC_Tooltip
-			buttons: BC_Growth_Button[]
-		}
-	}
-	output?: {
-		heading?: {
-			text?: string
-			colored?: string
-		}
-		revenuePercentageLabel?: string
-		perMonthLabel?: string
-		perMonthTooltip?: BC_Tooltip
-		breakdown?: {
-			heading?: string
-			openIcon?: string
+    }
+    input?: {
+        monthlyRevenue?: {
+            heading?: string
+            tooltip?: BC_Tooltip
+            slider?: BC_Slider
+        }
+        industry: {
+            heading?: string
+            tooltip?: BC_Tooltip
+            industries: BC_Industry[]
+        }
+        growth: {
+            heading?: string
+            tooltip?: BC_Tooltip
+            buttons: BC_Growth_Button[]
+        }
+    }
+    output?: {
+        heading?: {
+            text?: string
+            colored?: string
+        }
+        revenuePercentageLabel?: string
+        perMonthLabel?: string
+        perMonthTooltip?: BC_Tooltip
+        breakdown?: {
+            heading?: string
+            openIcon?: string
             listIcon?: string
-			breakdowns?: BC_Breakdown[]
-			hint?: string
-		}
-		button?: BC_Button
-		endHint?: string
-	}
+            breakdowns?: BC_Breakdown[]
+            hint?: string
+        }
+        button?: BC_Button
+        endHint?: string
+    }
 }
 enum BC_Currency_Orientation{
     "BEFORE_TEXT",
