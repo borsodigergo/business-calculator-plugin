@@ -1,0 +1,473 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script>
+    <link rel="stylesheet" href="css/calculator.css">
+    <link rel="stylesheet" href="css/all.min.css">
+    <title>Business Calculator</title>
+</head>
+<body>
+    <div class="business-calculator container mt-5">
+        <!--h2>Calculate your Budget</h2>
+        <div class="row m-0 justify-content-between align-items-start">
+            <div class="col-lg-7 col-12 bc__input">
+                <div class="bc__slider">
+                    <div class="bc__slider__upper">
+                        <span class="subHeading">
+                            Monthly Revenue
+                            <div class="bc__tooltip" aria-label="Open this tooltip to learn more about the Monthly Revenue">
+                                <div class="icon">
+                                    <i class="fa-light fa-circle-info"></i>
+                                </div>
+                                <div class="content">
+                                    <div class="inner">
+                                        Your business' average gross monthly revenue - total brought in before any expenses. 
+                                    </div>
+                                </div>
+                            </div>
+                        </span>
+                        <span class="bc__slider__revenue subHeading"></span>
+                    </div>
+                    <div class="bc__slider__middle">
+                        <input type="range" id="revenue" name="revenue" min="0" max="1000000" step="5000" oninput="progressScript()">
+                    </div>
+                    <div class="bc__slider__lower">
+                        <span>$0</span>
+                        <span>$1,000,000</span>
+                    </div>
+                </div>
+                <div class="bc__industry__selector">
+                    <span class="subHeading">
+                        Industry 
+                        <div class="bc__tooltip" aria-label="Open this tooltip to learn more about the Industries">
+                            <div class="icon">
+                                <i class="fa-light fa-circle-info"></i>
+                            </div>
+                            <div class="content">
+                                <div class="inner">
+                                    Select your business industry or closest match.
+                                </div>
+                            </div>
+                        </div>
+                    </span>
+                    <div class="bc__industry__types">
+                        <span class="bc__industry__type active" data-percentage="10">
+                            Consumer Goods
+                        </span>
+                        <span class="bc__industry__type" data-percentage="10">
+                            Education
+                        </span>
+                        <span class="bc__industry__type" data-percentage="14">
+                            Retail
+                        </span>
+                        <span class="bc__industry__type" data-percentage="21">
+                            Technology
+                        </span>
+                        <span class="bc__industry__type" data-percentage="18">
+                            Healthcare
+                        </span>
+                        <span class="bc__industry__type" data-percentage="10">
+                            Finance
+                        </span>
+                        <span class="bc__industry__type" data-percentage="13">
+                            Manufacturing
+                        </span>
+                        <span class="bc__industry__type" data-percentage="8">
+                            Real Estate
+                        </span>
+                        <span class="bc__industry__type" data-percentage="10">
+                            Hospitality
+                        </span>
+                        <span class="bc__industry__type" data-percentage="10">
+                            Transportation
+                        </span>
+                        <span class="bc__industry__type" data-percentage="15">
+                            Professional Services
+                        </span>
+                        <span class="bc__industry__type" data-percentage="20">
+                            E-Commerce
+                        </span>
+                        <span class="bc__industry__type" data-percentage="20">
+                            Entertainment
+                        </span>
+                        <span class="bc__industry__type" data-percentage="10">
+                            Nonprofits
+                        </span>
+                        <span class="bc__industry__type" data-percentage="12">
+                            Food & Beverages
+                        </span>
+                        <span class="bc__industry__type" data-percentage="5">
+                            Energy & Utilities
+                        </span>
+                        <span class="bc__industry__type" data-percentage="15">
+                            Other
+                        </span>
+                    </div>                    
+                </div>
+                <div class="bc__growth__goal">
+                    <span class="subHeading">
+                        Growth Goal 
+                        <div class="bc__tooltip" aria-label="Open this tooltip to learn more about the Monthly Revenue">
+                            <div class="icon">
+                                <i class="fa-light fa-circle-info"></i>
+                            </div>
+                            <div class="content">
+                                <div class="inner">
+                                    Conservative: a more cautious approach, aiming for steady and sustainable growth. <br>
+                                    Moderate: balanced growth, combining stability with some expansion. <br>
+                                    Aggressive: rapid growth and expansion, even if it involves higher risk.
+                                </div>
+                            </div>
+                        </div>
+                    </span>
+                    <div class="bc__growth__goal__buttons">
+                        <span class="bc__growth__goal__button active" data-multiplier="1">
+                            Conservative
+                        </span>
+                        <span class="bc__growth__goal__button" data-multiplier="1.5">
+                            Moderate
+                        </span>
+                        <span class="bc__growth__goal__button" data-multiplier="2">
+                            Aggressive
+                        </span>
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-4 col-12 bc__output text-center">
+                <div class="bc__output__heading">
+                    Your Recommended <span class="colored">Marketing Spend</span>
+                </div>
+                <div class="bc__output__revenue">
+                    <span class="bc__output__revenue__percentage">
+                        <span>20</span>% of Revenue
+                    </span>
+                    <span class="bc__output__revenue__total">
+                        10,000
+                    </span>
+                    <span>
+                        per month 
+                        <div class="bc__tooltip" aria-label="Open this tooltip to learn more about the Monthly Revenue">
+                            <div class="icon">
+                                <i class="fa-light fa-circle-info"></i>
+                            </div>
+                            <div class="content">
+                                <div class="inner">
+                                    This marketing budget could be allocated to salaries, specialist agency support and marketing initiatives, campaigns, ad spends and related expenses. 
+                                </div>
+                            </div>
+                        </div>
+                    </span>
+                </div>
+                <div class="bc__output__breakdowns">
+                    <details>
+                        <summary>Example Breakdown <i class="fa-regular fa-chevron-down"></i></summary>
+                        <ul>
+                            <li class="bc__output__breakdown" data-percentage="30">
+                                <span class="bc__output__breakdown__name">
+                                    Advertising
+                                </span>
+                                <span class="bc__output__breakdown__subtotal">
+                                    (30%)
+                                    <span></span>
+                                </span>
+                            </li>
+                            <li class="bc__output__breakdown" data-percentage="20">
+                                <span class="bc__output__breakdown__name">
+                                    Content
+                                </span>
+                                <span class="bc__output__breakdown__subtotal">
+                                    (20%)
+                                    <span></span>
+                                </span>
+                            </li>
+                            <li class="bc__output__breakdown" data-percentage="15">
+                                <span class="bc__output__breakdown__name">
+                                    SEO
+                                </span>
+                                <span class="bc__output__breakdown__subtotal">
+                                    (15%)
+                                    <span></span>
+                                </span>
+                            </li>
+                            <li class="bc__output__breakdown" data-percentage="10">
+                                <span class="bc__output__breakdown__name">
+                                    Social Media
+                                </span>
+                                <span class="bc__output__breakdown__subtotal">
+                                    (10%)
+                                    <span></span>
+                                </span>
+                            </li>
+                            <li class="bc__output__breakdown" data-percentage="10">
+                                <span class="bc__output__breakdown__name">
+                                    Brand & Website
+                                </span>
+                                <span class="bc__output__breakdown__subtotal">
+                                    (10%)
+                                    <span></span>
+                                </span>
+                            </li>
+                            <li class="bc__output__breakdown" data-percentage="5">
+                                <span class="bc__output__breakdown__name">
+                                    Email & SMS
+                                </span>
+                                <span class="bc__output__breakdown__subtotal">
+                                    (5%)
+                                    <span></span>
+                                </span>
+                            </li>
+                            <li class="bc__output__breakdown" data-percentage="5">
+                                <span class="bc__output__breakdown__name">
+                                    Analytics & Tools
+                                </span>
+                                <span class="bc__output__breakdown__subtotal">
+                                    (5%)
+                                    <span></span>
+                                </span>
+                            </li>
+                            <li class="bc__output__breakdown" data-percentage="5">
+                                <span class="bc__output__breakdown__name">
+                                    Miscellaneous
+                                </span>
+                                <span class="bc__output__breakdown__subtotal">
+                                    (5%)
+                                    <span></span>
+                                </span>
+                            </li>
+                        </ul>
+                        <span class="bc__hint">
+                            Adapt your budget based on campaign results and business goals, experimenting with tailored strategies and channels.
+                        </span>
+                    </details>
+                </div>
+                <a href="#" class="bc__button">
+                    See plans
+                </a>
+                <div class="bc__hint reduced">
+                    Unsure where to allocate your marketing spend? <a href="#">Take the quiz</a>
+                </div>
+            </div>
+        </div-->
+    </div>
+    <script src="js/calculator.min.js"></script>
+    <script>
+        /*
+        const sliderEl = document.querySelector("#revenue")
+        let revPercentage = 10;
+        let multiplier = 1.0;
+        let totalSpan = document.querySelector("span.bc__output__revenue__total");
+        let totalMult = document.querySelector("span.bc__output__revenue__percentage>span")
+        function formatMoney(x) {
+            return Math.floor(parseFloat(x)).toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+        }
+        function progressScript() {
+            const sliderValue = sliderEl.value;
+            let percentage = (sliderValue / 10000);
+            sliderEl.style.background = `linear-gradient(to right, var(--bc-primary) ${percentage}%, var(--bc-foreground-darker) ${percentage}%)`;
+            document.querySelector(".bc__slider__revenue").innerHTML = formatMoney(sliderValue)
+            updateTotal()
+        }
+        progressScript()
+
+        document.querySelectorAll("span.bc__industry__type").forEach(span => {
+            span.addEventListener("click", () => {
+                document.querySelectorAll("span.bc__industry__type").forEach(span => span.classList.remove("active"));
+
+                span.classList.add("active")
+                revPercentage = parseInt(span.getAttribute("data-percentage"))
+                updateTotal()
+            })
+        });
+        document.querySelectorAll("span.bc__growth__goal__button").forEach(span => {
+            span.addEventListener("click", () => {
+                document.querySelectorAll("span.bc__growth__goal__button").forEach(span => span.classList.remove("active"));
+
+                span.classList.add("active")
+                multiplier = parseFloat(span.getAttribute("data-multiplier"))
+                updateTotal()
+            })
+        });
+
+        function updateTotal(){
+            let totalMultiplier = (revPercentage * multiplier) / 100
+            totalSpan.innerHTML = formatMoney(sliderEl.value * totalMultiplier)
+            totalMult.innerHTML = Math.round(totalMultiplier * 1000)/10
+            document.querySelectorAll("li.bc__output__breakdown").forEach(breakdown => {
+                let percentage = breakdown.getAttribute("data-percentage")
+                breakdown.querySelector(".bc__output__breakdown__subtotal>span").innerHTML = "$" + formatMoney((sliderEl.value * totalMultiplier)*(parseFloat(percentage)/100))
+            })
+        }
+
+        let details = document.querySelector(".bc__output__breakdowns details")
+
+        details.addEventListener("toggle", function() {
+            document.querySelector("div.bc__output").classList.toggle("bc__details__open")
+        })*/
+        let calculator = new BusinessCalculator({
+            root: document.querySelector("div.business-calculator"),
+            currency: "asd",
+            currencyOrientation: BC_Currency_Orientation.AFTER_TEXT,
+            input: {
+                industry: {
+                    industries: [
+                        {
+                            text: "Consumer Goods",
+                            percentage: 10
+                        },
+                        {
+                            text: "Education",
+                            percentage: 10
+                        },
+                        {
+                            text: "Retail",
+                            percentage: 14
+                        },
+                        {
+                            text: "Technology",
+                            percentage: 21
+                        },
+                        {
+                            text: "Healthcare",
+                            percentage: 18
+                        },
+                        {
+                            text: "Finance",
+                            percentage: 10
+                        },
+                        {
+                            text: "Manufacturing",
+                            percentage: 13
+                        },
+                        {
+                            text: "Real Estate",
+                            percentage: 8
+                        },
+                        {
+                            text: "Hospitality",
+                            percentage: 10
+                        },
+                        {
+                            text: "Transportation",
+                            percentage: 10
+                        },
+                        {
+                            text: "Professional Services",
+                            percentage: 15
+                        },
+                        {
+                            text: "E-Commerce",
+                            percentage: 20
+                        },
+                        {
+                            text: "Entertainment",
+                            percentage: 20
+                        },
+                        {
+                            text: "Nonprofits",
+                            percentage: 10
+                        },
+                        {
+                            text: "Food & Beverages",
+                            percentage: 12
+                        },
+                        {
+                            text: "Energy & Utilities",
+                            percentage: 5
+                        },
+                        {
+                            text: "Other",
+                            percentage: 15
+                        }
+                    ]
+                },
+                growth: {
+                    buttons: [
+                        {
+                            text: "Conservative",
+                            multiplier: 1
+                        },
+                        {
+                            text: "Moderate",
+                            multiplier: 1.5
+                        },
+                        {
+                            text: "Aggressive",
+                            multiplier: 2
+                        }
+                    ]
+                }
+            },
+            output: {
+                breakdown: {
+                    breakdowns: [
+                        /*
+
+                        Advertising
+                        (30%)
+
+
+                        Content
+                        (20%)
+
+                        SEO
+                        (15%)
+
+                        Social Media
+                        (10%)
+
+                        Brand & Website
+                        (10%)
+
+                        Email & SMS
+                        (5%)
+
+                        Analytics & Tools
+                        (5%)
+
+                        Miscellaneous
+                        (5%)
+
+                        */
+                        {
+                            text: "Advertising",
+                            percentage: 30
+                        },
+                        {
+                            text: "Content",
+                            percentage: 20
+                        },
+                        {
+                            text: "SEO",
+                            percentage: 15
+                        },
+                        {
+                            text: "Social Media",
+                            percentage: 10
+                        },
+                        {
+                            text: "Brand & Website",
+                            percentage: 10
+                        },
+                        {
+                            text: "Email & SMS",
+                            percentage: 5
+                        },
+                        {
+                            text: "Analytics & Tools",
+                            percentage: 5
+                        },
+                        {
+                            text: "Miscellaneous",
+                            percentage: 5
+                        },
+                    ]
+                }
+            }
+        });
+        calculator.init();
+    </script>
+</body>
+</html>
