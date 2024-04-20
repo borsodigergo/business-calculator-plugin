@@ -69,11 +69,11 @@ class BusinessCalculator {
         bc__output__revenue__percentage.innerHTML += (this.options.output?.revenuePercentageLabel !== undefined ? this.options.output?.revenuePercentageLabel : "% of Revenue");
         this.bc__output__revenue__total = this.createSpan(bc__output__revenue, "", "bc__output__revenue__total");
         let bc__output__revenue__span = this.createSpan(bc__output__revenue, (this.options.output?.perMonthLabel !== undefined ? this.options.output?.perMonthLabel : "per month"));
-        let perMonthTooltip_data = (this.options.output?.perMonthTooltip !== undefined ? this.options.output?.perMonthTooltip : {
-            icon: "fa-light fa-circle-info",
-            text: "This marketing budget could be allocated to salaries, specialist agency support and marketing initiatives, campaigns, ad spends and related expenses.",
-            ariaLabel: "Open this tooltip to learn more about the Monthly Budget"
-        });
+        let perMonthTooltip_data = {
+            icon: (this.options.output?.perMonthTooltip?.icon != undefined ? this.options.output?.perMonthTooltip?.icon : "fa-light fa-circle-info"),
+            text: (this.options.output?.perMonthTooltip?.text != undefined ? this.options.output?.perMonthTooltip?.text : "This marketing budget could be allocated to salaries, specialist agency support and marketing initiatives, campaigns, ad spends and related expenses."),
+            ariaLabel: (this.options.output?.perMonthTooltip?.ariaLabel != undefined ? this.options.output?.perMonthTooltip?.ariaLabel : "Open this tooltip to learn more about the Monthly Budget")
+        };
         let perMonthTooltip = this.createToolTip(perMonthTooltip_data);
         bc__output__revenue__span.appendChild(perMonthTooltip);
         if (this.options.output?.breakdown !== undefined) {
@@ -140,11 +140,11 @@ class BusinessCalculator {
     createSlider(parent, tooltip, heading, sliderOptions) {
         let bc__slider = this.createDiv(parent, "bc__slider");
         let bc__slider__upper = this.createDiv(bc__slider, "bc__slider__upper");
-        let sliderTooltip = (tooltip !== undefined ? tooltip : {
-            icon: "fa-light fa-circle-info",
-            text: "Your business' average gross monthly revenue - total brought in before any expenses.",
-            ariaLabel: "Open this tooltip to learn more about the Monthly Revenue"
-        });
+        let sliderTooltip = {
+            icon: (tooltip?.icon != undefined ? tooltip?.icon : "fa-light fa-circle-info"),
+            text: (tooltip?.text != undefined ? tooltip?.text : "Your business' average gross monthly revenue - total brought in before any expenses."),
+            ariaLabel: (tooltip?.ariaLabel != undefined ? tooltip?.ariaLabel : "Open this tooltip to learn more about the Monthly Revenue")
+        };
         let slider_subheading_text = (heading !== undefined ? heading : "Monthly Revenue");
         let slider_subheading = this.createSubHeading(sliderTooltip, slider_subheading_text);
         bc__slider__upper.appendChild(slider_subheading);
@@ -174,11 +174,11 @@ class BusinessCalculator {
         this.createSlider(bc__input, this.options.input?.monthlyRevenue?.tooltip, this.options.input?.monthlyRevenue?.heading, this.options.input?.monthlyRevenue?.slider);
         let bc__industry__selector = this.createDiv(bc__input, "bc__industry__selector");
         let industry_subheading_text = (this.options.input?.industry?.heading !== undefined ? this.options.input?.industry?.heading : "Industry");
-        let industryTooltip = (this.options.input?.industry?.tooltip !== undefined ? this.options.input?.industry?.tooltip : {
-            icon: "fa-light fa-circle-info",
-            text: "Select your business industry or closest match.",
-            ariaLabel: "Open this tooltip to learn more about the Industries"
-        });
+        let industryTooltip = {
+            icon: (this.options.input?.industry?.tooltip?.icon != undefined ? this.options.input?.industry?.tooltip?.icon : "fa-light fa-circle-info"),
+            text: (this.options.input?.industry?.tooltip?.text != undefined ? this.options.input?.industry?.tooltip?.text : "Select your business industry or closest match."),
+            ariaLabel: (this.options.input?.industry?.tooltip?.ariaLabel != undefined ? this.options.input?.industry?.tooltip?.ariaLabel : "Open this tooltip to learn more about the Industries")
+        };
         let industry_subheading = this.createSubHeading(industryTooltip, industry_subheading_text);
         bc__industry__selector.appendChild(industry_subheading);
         let bc__industry__types = this.createDiv(bc__industry__selector, "bc__industry__types");
@@ -189,6 +189,7 @@ class BusinessCalculator {
                 let industry_type = this.createSpan(bc__industry__types, industry.text, "bc__industry__type");
                 if (0 == count++) {
                     industry_type.classList.add("active");
+                    this.revPercentage = parseInt(industry.percentage.toString());
                 }
                 industry_type.setAttribute("data-percentage", industry.percentage.toString());
                 industry_type.addEventListener("click", () => {
@@ -206,11 +207,11 @@ class BusinessCalculator {
         }
         let bc__growth__goal = this.createDiv(bc__input, "bc__growth__goal");
         let growthGoal_subheading_text = (this.options.input?.growth?.heading !== undefined ? this.options.input?.growth?.heading : "Growth Goal");
-        let growthGoal_tooltip = (this.options.input?.growth?.tooltip !== undefined ? this.options.input?.growth?.tooltip : {
-            icon: "fa-light fa-circle-info",
-            text: "Conservative: a more cautious approach, aiming for steady and sustainable growth. <br>Moderate: balanced growth, combining stability with some expansion. <br>Aggressive: rapid growth and expansion, even if it involves higher risk.",
-            ariaLabel: "Open this tooltip to learn more about the Growth Goals"
-        });
+        let growthGoal_tooltip = {
+            icon: (this.options.input?.growth?.tooltip?.icon != undefined ? this.options.input?.growth?.tooltip?.icon : "fa-light fa-circle-info"),
+            text: (this.options.input?.growth?.tooltip?.text != undefined ? this.options.input?.growth?.tooltip?.text : "Conservative: a more cautious approach, aiming for steady and sustainable growth. <br>Moderate: balanced growth, combining stability with some expansion. <br>Aggressive: rapid growth and expansion, even if it involves higher risk."),
+            ariaLabel: (this.options.input?.growth?.tooltip?.ariaLabel != undefined ? this.options.input?.growth?.tooltip?.ariaLabel : "Open this tooltip to learn more about the Growth Goals")
+        };
         let growth_subheading = this.createSubHeading(growthGoal_tooltip, growthGoal_subheading_text);
         bc__growth__goal.appendChild(growth_subheading);
         let bc__growth__goal__buttons = this.createDiv(bc__growth__goal, "bc__growth__goal__buttons");
@@ -221,6 +222,7 @@ class BusinessCalculator {
                 let growth_button = this.createSpan(bc__growth__goal__buttons, button.text, "bc__growth__goal__button");
                 if (0 == count++) {
                     growth_button.classList.add("active");
+                    this.multiplier = parseFloat(button.multiplier.toString());
                 }
                 growth_button.setAttribute("data-multiplier", button.multiplier.toString());
                 growth_button.addEventListener("click", () => {
@@ -303,6 +305,6 @@ class BusinessCalculator {
 }
 var BC_Currency_Orientation;
 (function (BC_Currency_Orientation) {
-    BC_Currency_Orientation[BC_Currency_Orientation["BEFORE_TEXT"] = 0] = "BEFORE_TEXT";
-    BC_Currency_Orientation[BC_Currency_Orientation["AFTER_TEXT"] = 1] = "AFTER_TEXT";
+    BC_Currency_Orientation["BEFORE_TEXT"] = "BEFORE_TEXT";
+    BC_Currency_Orientation["AFTER_TEXT"] = "AFTER_TEXT";
 })(BC_Currency_Orientation || (BC_Currency_Orientation = {}));

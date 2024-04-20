@@ -19,7 +19,7 @@ if(!class_exists("BC_Options")){
             //echo json_last_error_msg();
             $this->heading = (isset($object->heading) ? $object->heading : null);
             $this->currency = (isset($object->currency) ? $object->currency : null);
-            $this->currencyOrientation = (isset($object->currencyOrientation) ? $object->currencyOrientation : null);
+            $this->currencyOrientation = (isset($object->currencyOrientation) ? BC_Currency_Orientation::from($object->currencyOrientation) : null);
             $this->colors = new stdClass();
             $this->colors->primary = (isset($object->colors->primary) ? $object->colors->primary : null);
             $this->colors->secondary = (isset($object->colors->secondary) ? $object->colors->secondary : null);

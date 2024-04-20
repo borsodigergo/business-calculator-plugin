@@ -23,7 +23,7 @@ if(!class_exists("BusinessCalculator")){
          * We start our class by calling the init() function, which then prepares the class for shortcode usage
          */
         public static function init(){
-            if(!BusinessCalculator::checkCoreFile(BC_LOCATION . "/js/ofs.js") || !BusinessCalculator::checkCoreFile(BC_LOCATION . "/css/all.min.css") || !BusinessCalculator::checkCoreFile(BC_LOCATION . "/css/calculator.min.css") || !BusinessCalculator::checkCoreFile(BC_LOCATION . "/css/bootstrap.min.css") || !BusinessCalculator::checkCoreFile(BC_LOCATION . "/js/bootstrap.bundle.min.js") || !BusinessCalculator::checkCoreFile(BC_LOCATION . "/pages/bc__settings.php") || !BusinessCalculator::checkCoreFile(BC_LOCATION . "/utils/BC_Data.php")){
+            if(!BusinessCalculator::checkCoreFile(BC_LOCATION . "/css/all.min.css") || !BusinessCalculator::checkCoreFile(BC_LOCATION . "/css/calculator.css") || !BusinessCalculator::checkCoreFile(BC_LOCATION . "/css/bootstrap.min.css") || !BusinessCalculator::checkCoreFile(BC_LOCATION . "/js/bootstrap.bundle.min.js") || !BusinessCalculator::checkCoreFile(BC_LOCATION . "/pages/bc__settings.php") || !BusinessCalculator::checkCoreFile(BC_LOCATION . "/utils/BC_Data.php")){
                 return;
             }
             require_once(BC_LOCATION . "/pages/bc__settings.php");
@@ -95,7 +95,7 @@ if(!class_exists("BusinessCalculator")){
         public static function displayCalculator(){
             add_action("wp_enqueue_scripts", "BusinessCalculator::includeFrontend");
             $output = "";
-            $output .= '<div class="business-calculator"></div><script src="'.plugin_dir_url( __FILE__ ).'js/calculator.min.js"></script><script>const BC = new BusinessCalculator({root: document.querySelector("div.business-calculator"),';
+            $output .= '<div class="business-calculator"></div><script src="'.plugin_dir_url( __FILE__ ).'js/calculator.js"></script><script>const BC = new BusinessCalculator({root: document.querySelector("div.business-calculator"),';
             $output .= BusinessCalculator::loopThroughObject(BC_Data::$options);
 
             $output .= '}); BC.init(); </script>';
@@ -110,7 +110,9 @@ if(!class_exists("BusinessCalculator")){
                     $output .= "{";
                     foreach(get_object_vars($element) as $key => $var){
                         if($var == null) continue;
-                        if(is_array($var)){
+                        if($var instanceof \BC_Currency_Orientation){
+                            $output .= $key . ": '" .$var->value. "',";
+                        }elseif(is_array($var)){
                             if(count($var) == 0) continue;
                             $output .= $key. ": [";
                             $output .= BusinessCalculator::loopThroughObject($var);
@@ -130,7 +132,9 @@ if(!class_exists("BusinessCalculator")){
             }else{
                 foreach(get_object_vars($object) as $key => $var){
                     if($var == null) continue;
-                    if(is_array($var)){
+                    if($var instanceof \BC_Currency_Orientation){
+                        $output .= $key . ": '" .$var->value. "',";
+                    }elseif(is_array($var)){
                         if(count($var) == 0) continue;
                         $output .= $key. ": [";
                         $output .= BusinessCalculator::loopThroughObject($var);

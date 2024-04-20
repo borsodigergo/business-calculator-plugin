@@ -1,14 +1,39 @@
 <?php
 
+
 if (!class_exists("BC__Settings")) {
     require_once(BC_LOCATION . "/utils/BC_Options.php");
+    require_once(BC_LOCATION . "/utils/BC_Data.php");
+
+    $saveStatus = null;
+    if(isset($_POST["bc__save"])){
+        /*if(BC_Data::saveOptions($_POST)){
+            $saveStatus = "OK";
+        }else{
+            $saveStatus = "ERROR";
+        }*/
+        $options = BC_Data::saveOptions($_POST);
+        if($options == null){
+            echo "error <br>";
+        }else{
+            echo "success <br>";
+        }
+        //var_dump(BC_Data::saveOptions($_POST));
+    }
+
+
+
+
+
+
+
     class BC__Settings
     {
         public static function display(BC_Options $options)
         {
-            $orientation = ($options->currencyOrientation ? $options->currencyOrientation : "BEFORE_TEXT");
-?>
-            <div class="container-fluid mt-5">
+            $orientation = ($options->currencyOrientation ? $options->currencyOrientation->value : "BEFORE_TEXT");
+?>  
+            <form method="post" class="container-fluid mt-5">
                 <h1 class="mb-5">Business Calculator Settings</h1>
                 <div class="row m-0">
                     <div class="col-6">
@@ -24,8 +49,8 @@ if (!class_exists("BC__Settings")) {
                         <div class="mt-3 d-flex justify-content-between" style="max-width: 600px">
                             Currency orientation:
                             <div>
-                                <input type="radio" name="orientation" id="orientation_before" value="BEFORE_TEXT" <?= (($orientation == "BEFORE_TEXT") ? "checked" : "") ?>><label for="orientation_before">Before text</label><br>
-                                <input type="radio" name="orientation" id="orientation_after" value="AFTER_TEXT" <?= (($orientation == "AFTER_TEXT") ? "checked" : "") ?>><label for="orientation_after">After text</label>
+                                <input type="radio" name="currencyOrientation" id="orientation_before" value="BEFORE_TEXT" <?= (($orientation == "BEFORE_TEXT") ? "checked" : "") ?>><label for="orientation_before">Before text</label><br>
+                                <input type="radio" name="currencyOrientation" id="orientation_after" value="AFTER_TEXT" <?= (($orientation == "AFTER_TEXT") ? "checked" : "") ?>><label for="orientation_after">After text</label>
                             </div>
                         </div>
                         <div class="mt-5" style="max-width: 600px">
@@ -98,7 +123,11 @@ if (!class_exists("BC__Settings")) {
                             </div>
                             <div class="mt-3 d-flex justify-content-between mx-auto" style="max-width: 500px">
                                 <label for="input_industry_industries" style="max-width: 50%;">Industries: <span class="required"><b>*</b></span><br><small><i>One industry per row, format:<br>&lt;industry&gt;|&lt;percentage&gt;</i></small></label>
-                                <textarea name="input_industry_industries" id="input_industry_industries" style="width: 350px; height: 500px;" placeholder="Industry Name|percentage"><?php if ($options->input->industry->industries) { foreach ($options->input->industry->industries as $industry) { echo trim($industry->text) . "|" . trim($industry->percentage) . "\n"; } } ?></textarea>
+                                <textarea name="input_industry_industries" id="input_industry_industries" style="width: 350px; height: 500px;" placeholder="Industry Name|percentage"><?php if ($options->input->industry->industries) {
+                                                                                                                                                                                            foreach ($options->input->industry->industries as $industry) {
+                                                                                                                                                                                                echo trim($industry->text) . "|" . trim($industry->percentage) . "\n";
+                                                                                                                                                                                            }
+                                                                                                                                                                                        } ?></textarea>
                             </div>
                         </fieldset>
                         <fieldset class="mt-3 border p-2" style="max-width: 600px">
@@ -126,7 +155,11 @@ if (!class_exists("BC__Settings")) {
                             </div>
                             <div class="mt-3 d-flex justify-content-between mx-auto" style="max-width: 500px">
                                 <label for="input_growth_buttons" style="max-width: 50%;">Buttons: <span class="required"><b>*</b></span><br><small><i>One button per row, format:<br>&lt;label&gt;|&lt;multiplier&gt;</i></small></label>
-                                <textarea name="input_growth_buttons" id="input_growth_buttons" style="width: 350px; height: 150px;" placeholder="Button label|multiplier"><?php if ($options->input->growth->buttons) { foreach ($options->input->growth->buttons as $button) { echo trim($button->text) . "|" . trim($button->multiplier) . "\n"; } } ?></textarea>
+                                <textarea name="input_growth_buttons" id="input_growth_buttons" style="width: 350px; height: 150px;" placeholder="Button label|multiplier"><?php if ($options->input->growth->buttons) {
+                                                                                                                                                                                foreach ($options->input->growth->buttons as $button) {
+                                                                                                                                                                                    echo trim($button->text) . "|" . trim($button->multiplier) . "\n";
+                                                                                                                                                                                }
+                                                                                                                                                                            } ?></textarea>
                             </div>
                         </fieldset>
                     </div>
@@ -188,7 +221,11 @@ if (!class_exists("BC__Settings")) {
                             </div>
                             <div class="mt-3 d-flex justify-content-between mx-auto" style="max-width: 500px">
                                 <label for="output_breakdown_breakdowns" style="max-width: 50%;">Breakdowns:<br><small><i>One breakdown per row, format:<br>&lt;breakdown&gt;|&lt;percentage&gt;</i></small></label>
-                                <textarea name="output_breakdown_breakdowns" id="output_breakdown_breakdowns" style="width: 350px; height: 500px;" placeholder="Breakdown Name|percentage"><?php if ($options->output->breakdown->breakdowns) { foreach ($options->output->breakdown->breakdowns as $breakdown) { echo trim($breakdown->text) . "|" . trim($breakdown->percentage) . "\n"; } } ?></textarea>
+                                <textarea name="output_breakdown_breakdowns" id="output_breakdown_breakdowns" style="width: 350px; height: 500px;" placeholder="Breakdown Name|percentage"><?php if ($options->output->breakdown->breakdowns) {
+                                                                                                                                                                                                foreach ($options->output->breakdown->breakdowns as $breakdown) {
+                                                                                                                                                                                                    echo trim($breakdown->text) . "|" . trim($breakdown->percentage) . "\n";
+                                                                                                                                                                                                }
+                                                                                                                                                                                            } ?></textarea>
                             </div>
                         </fieldset>
                         <fieldset class="mt-3 border p-2" style="max-width: 600px">
@@ -206,11 +243,12 @@ if (!class_exists("BC__Settings")) {
                             <label for="output_endHint">Hint under button:</label>
                             <textarea name="output_endHint" id="output_endHint" style="width: 350px" placeholder="Unsure where to allocate your marketing spend? <a href='#'>Take the quiz</a>"><?= $options->output->endHint ? $options->output->endHint : "" ?></textarea>
                         </div>
+                        <button name="bc__save" class="btn-primary btn mt-5">Save Calculator settings</button>
                     </div>
+                    
                 </div>
-
-
-            </div>
+                
+            </form>
 
 <?php //TODO: settings save
         }

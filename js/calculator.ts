@@ -91,11 +91,11 @@ class BusinessCalculator {
         this.bc__output__revenue__total = this.createSpan(bc__output__revenue, "", "bc__output__revenue__total")
 
         let bc__output__revenue__span = this.createSpan(bc__output__revenue, (this.options.output?.perMonthLabel !== undefined ? this.options.output?.perMonthLabel : "per month"))
-        let perMonthTooltip_data: BC_Tooltip = (this.options.output?.perMonthTooltip !== undefined ? this.options.output?.perMonthTooltip : {
-            icon: "fa-light fa-circle-info",
-            text: "This marketing budget could be allocated to salaries, specialist agency support and marketing initiatives, campaigns, ad spends and related expenses.",
-            ariaLabel: "Open this tooltip to learn more about the Monthly Budget"
-        })
+        let perMonthTooltip_data: BC_Tooltip = {
+            icon: (this.options.output?.perMonthTooltip?.icon != undefined ? this.options.output?.perMonthTooltip?.icon : "fa-light fa-circle-info"),
+            text: (this.options.output?.perMonthTooltip?.text != undefined ? this.options.output?.perMonthTooltip?.text : "This marketing budget could be allocated to salaries, specialist agency support and marketing initiatives, campaigns, ad spends and related expenses."),
+            ariaLabel: (this.options.output?.perMonthTooltip?.ariaLabel != undefined ? this.options.output?.perMonthTooltip?.ariaLabel :"Open this tooltip to learn more about the Monthly Budget")
+        }
         let perMonthTooltip = this.createToolTip(perMonthTooltip_data)
         bc__output__revenue__span.appendChild(perMonthTooltip)
 
@@ -168,11 +168,11 @@ class BusinessCalculator {
         let bc__slider = this.createDiv(parent, "bc__slider")
         let bc__slider__upper = this.createDiv(bc__slider, "bc__slider__upper")
 
-        let sliderTooltip: BC_Tooltip = (tooltip !== undefined ? tooltip : {
-            icon: "fa-light fa-circle-info",
-            text: "Your business' average gross monthly revenue - total brought in before any expenses.",
-            ariaLabel: "Open this tooltip to learn more about the Monthly Revenue"
-        })
+        let sliderTooltip: BC_Tooltip = {
+            icon: (tooltip?.icon != undefined ? tooltip?.icon :"fa-light fa-circle-info"),
+            text: (tooltip?.text != undefined ? tooltip?.text :"Your business' average gross monthly revenue - total brought in before any expenses."),
+            ariaLabel: (tooltip?.ariaLabel != undefined ? tooltip?.ariaLabel :"Open this tooltip to learn more about the Monthly Revenue")
+        }
         let slider_subheading_text = (heading !== undefined ? heading : "Monthly Revenue")
         let slider_subheading = this.createSubHeading(sliderTooltip, slider_subheading_text)
         bc__slider__upper.appendChild(slider_subheading)
@@ -212,11 +212,11 @@ class BusinessCalculator {
         let bc__industry__selector = this.createDiv(bc__input, "bc__industry__selector")
 
         let industry_subheading_text: string = (this.options.input?.industry?.heading !== undefined ? this.options.input?.industry?.heading : "Industry")
-        let industryTooltip: BC_Tooltip = (this.options.input?.industry?.tooltip !== undefined ? this.options.input?.industry?.tooltip : {
-            icon: "fa-light fa-circle-info",
-            text: "Select your business industry or closest match.",
-            ariaLabel: "Open this tooltip to learn more about the Industries"
-        } )
+        let industryTooltip: BC_Tooltip = {
+            icon: (this.options.input?.industry?.tooltip?.icon != undefined ? this.options.input?.industry?.tooltip?.icon :"fa-light fa-circle-info"),
+            text:  (this.options.input?.industry?.tooltip?.text != undefined ? this.options.input?.industry?.tooltip?.text :"Select your business industry or closest match."),
+            ariaLabel:  (this.options.input?.industry?.tooltip?.ariaLabel != undefined ? this.options.input?.industry?.tooltip?.ariaLabel :"Open this tooltip to learn more about the Industries")
+        } 
         let industry_subheading = this.createSubHeading(industryTooltip, industry_subheading_text)
         bc__industry__selector.appendChild(industry_subheading)
 
@@ -229,6 +229,7 @@ class BusinessCalculator {
                 let industry_type = this.createSpan(bc__industry__types, industry.text, "bc__industry__type")
                 if(0 == count++){
                     industry_type.classList.add("active")
+                    this.revPercentage = parseInt(industry.percentage.toString())
                 }
                 industry_type.setAttribute("data-percentage", industry.percentage.toString())
                 industry_type.addEventListener("click", () => {
@@ -248,11 +249,11 @@ class BusinessCalculator {
         let bc__growth__goal = this.createDiv(bc__input, "bc__growth__goal")
 
         let growthGoal_subheading_text: string = (this.options.input?.growth?.heading !== undefined ? this.options.input?.growth?.heading : "Growth Goal")
-        let growthGoal_tooltip: BC_Tooltip = (this.options.input?.growth?.tooltip !== undefined ? this.options.input?.growth?.tooltip : {
-            icon: "fa-light fa-circle-info",
-            text: "Conservative: a more cautious approach, aiming for steady and sustainable growth. <br>Moderate: balanced growth, combining stability with some expansion. <br>Aggressive: rapid growth and expansion, even if it involves higher risk.",
-            ariaLabel: "Open this tooltip to learn more about the Growth Goals"
-        } )
+        let growthGoal_tooltip: BC_Tooltip = {
+            icon:  (this.options.input?.growth?.tooltip?.icon != undefined ? this.options.input?.growth?.tooltip?.icon :"fa-light fa-circle-info"),
+            text: (this.options.input?.growth?.tooltip?.text != undefined ? this.options.input?.growth?.tooltip?.text :"Conservative: a more cautious approach, aiming for steady and sustainable growth. <br>Moderate: balanced growth, combining stability with some expansion. <br>Aggressive: rapid growth and expansion, even if it involves higher risk."),
+            ariaLabel: (this.options.input?.growth?.tooltip?.ariaLabel != undefined ? this.options.input?.growth?.tooltip?.ariaLabel :"Open this tooltip to learn more about the Growth Goals")
+        } 
         let growth_subheading = this.createSubHeading(growthGoal_tooltip, growthGoal_subheading_text)
         bc__growth__goal.appendChild(growth_subheading)
 
@@ -265,6 +266,7 @@ class BusinessCalculator {
                 let growth_button = this.createSpan(bc__growth__goal__buttons, button.text, "bc__growth__goal__button")
                 if(0 == count++){
                     growth_button.classList.add("active")
+                    this.multiplier = parseFloat(button.multiplier.toString());
                 }
                 growth_button.setAttribute("data-multiplier", button.multiplier.toString())
                 growth_button.addEventListener("click", () => {
@@ -322,6 +324,7 @@ class BusinessCalculator {
         let iconWrapper = this.createDiv(tooltipEl, "icon")
 
         let icon = document.createElement("i")
+        
         icon.classList.add(...tooltip.icon.split(' '))
         iconWrapper.appendChild(icon)
 
@@ -403,8 +406,8 @@ interface BC_Options {
 	}
 }
 enum BC_Currency_Orientation{
-    "BEFORE_TEXT",
-    "AFTER_TEXT"
+    BEFORE_TEXT = "BEFORE_TEXT",
+    AFTER_TEXT = "AFTER_TEXT"
 }
 interface BC_Tooltip {
 	icon: string
