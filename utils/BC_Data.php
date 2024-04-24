@@ -45,6 +45,9 @@ if (!class_exists("BC_Data")) {
         public static function init()
         {
             global $wpdb;
+            if($wpdb->query("SHOW TABLES LIKE '".BC__TABLE__PREFIX."';") == 0){
+                BC_Data::setupDatabase();
+            }
             $opsStr = $wpdb->get_results("SELECT value FROM wp_business_calculator WHERE setting='bcs__options'");
             BC_Data::$options = new BC_Options($opsStr[0]->value);
         }
