@@ -1,6 +1,9 @@
 .business-calculator{
     background: var(--bc-background);
     container-type: inline-size;
+    line-height: 1.5;
+    font-weight: 400;
+    font-size: 1rem;
 }
 
 .business-calculator *{

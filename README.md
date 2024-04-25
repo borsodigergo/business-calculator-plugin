@@ -9,6 +9,16 @@ This plugin has the following dependencies, all of which are packed with the plu
 
 The plugin is basically a wp-wrapper for the original js library, also written by me. Its specification can be found below. The settings page for the plugin can be found in "Settings > Business Calculator" after enabling the plugin.
 
+## Usage with performance optimalization plugins
+If you use any of these plugins (WP-Rocket, Autoptimize etc), you have to add these files to the exception list for minifying (every file is minified by default), defering and delayed-executioning:
+- `/wp-content/plugins/business-calculator-plugin/css/calculator.min.css`
+- `/wp-content/plugins/business-calculator-plugin/css/all.min.css`
+- `/wp-content/plugins/business-calculator-plugin/css/bootstrap.min.css`
+- `/wp-content/plugins/business-calculator-plugin/js/calculator.min.js`
+
+> If you are using any live-action editors like Oxygen or Elementor; you have to manually include the **css** files in the `<head>` by a code snippet system. (e.g. Elementor's Custom Code, or Code Snippets plugin etc). It is needed, because these editors usually carry a custom-made resource loading system, and this plugin is only prepared for the usage of the default resource management system in WP -> the required css files will not be loaded correctly.
+> A sample code which can be inserted into the head: `<link rel="stylesheet" id="bc__core_css" href="/wp-content/plugins/business-calculator-plugin/css/calculator.min.css" media="all"><link rel="stylesheet" id="bc__fa" href="/wp-content/plugins/business-calculator-plugin/css/all.min.css" media="all"><link rel="stylesheet" id="bc__bootstrap_css" href="/wp-content/plugins/business-calculator-plugin/css/bootstrap.min.css" media="all">`
+
 # \[JS-Lib\]
 
 This is a lightweight, fast Vanilla-javascript based BusinessCalculator script, with fully customizable elements.
