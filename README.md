@@ -7,7 +7,7 @@ This plugin has the following dependencies, all of which are packed with the plu
 - FontAwesome 6 Pro or later (css + webfonts)
 - Bootstrap 5.0.2 (js+css)
 
-The plugin is basically a wp-wrapper for the original js library, also written by me. Its specification can be found below.
+The plugin is basically a wp-wrapper for the original js library, also written by me. Its specification can be found below. The settings page for the plugin can be found in "Settings > Business Calculator" after enabling the plugin.
 
 # \[JS-Lib\]
 
