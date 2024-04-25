@@ -401,6 +401,6 @@ interface BC_Button {
 
 ## Licensing
 
-This calculator is under the GPL license. You can freely use this in open source projects, modify it on your own, or use it in your public webapps. Re-distributing however, is probihited, and in such case a legal action may be performed.
+This calculator is under the MIT license. You can freely use this in open source projects, modify it on your own, or use it in your public webapps. **Re-distributing however, is probihited, and in such case a legal action may be performed.**
 
 Borsodi Gergő (7digits) © 2024
