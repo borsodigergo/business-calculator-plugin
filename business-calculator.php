@@ -101,7 +101,7 @@ if(!class_exists("BusinessCalculator")){
         public static function includeFrontend(){
             wp_enqueue_style ('bc__core_css',  plugin_dir_url( __FILE__ ) . 'css/calculator.min.css', array());
             wp_enqueue_style ('bc__fontawesome_6',  plugin_dir_url( __FILE__ ) . 'css/all.min.css', array());
-            wp_enqueue_style ('bc__bootstrap',  plugin_dir_url( __FILE__ ) . 'css/bootstrap.min.css', array());
+            wp_enqueue_style ('bc__bootstrap',  plugin_dir_url( __FILE__ ) . 'css/bootstrap.min.css', array()); 
         }
 
         /**
