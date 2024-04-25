@@ -1,8 +1,13 @@
-# Business Calculator \[JS\]
+# Business Calculator
+
+This WordPress plugin is an easy-to-use, easy-to-install marketing-calculator. After its activation, it can be displayed on any wp-preprocessed page with the shortcode `[business-calculator]`. or by calling the `do_shortcode()` php-directive. 
+**The Minimum required PHP version is 8.0**.
+
+The plugin is basically a wp-wrapper for the original js library, also written by me. Its specification can be found below.
+
+# \[JS-Lib\]
 
 This is a lightweight, fast Vanilla-javascript based BusinessCalculator script, with fully customizable elements.
-
-You can find a working demu in the [index.html](index.html) file.
 
 ## Usage
 The calculator has one dependency, which is the **FontAwesome** iconset. You can specify with a flag if you want to use the **Pro**, or the **Free version**. Regardless, the CSS file/font files for FontAwesome has to be included in order for the icons to display correctly.
