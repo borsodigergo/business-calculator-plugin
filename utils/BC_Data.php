@@ -5,12 +5,21 @@ if (!class_exists("BC_Data")) {
     if (!defined("BC__TABLE__PREFIX")) define("BC__TABLE__PREFIX", $wpdb->prefix . "business_calculator");
 
     require_once(BC_LOCATION . "/utils/BC_Options.php");
+
+    /**
+     * Class to process and handle the plugin's data stored in the database.
+     */
     class BC_Data
     {
 
+        /**
+         * The global object storing the actual options for the calculator
+         */
         public static BC_Options $options;
 
-
+        /**
+         * Run on first plugin activation. Creates the necessary sql tables, and populates it with default data.
+         */
         public static function setupDatabase()
         {
             global $wpdb;
@@ -31,6 +40,10 @@ if (!class_exists("BC_Data")) {
 
             BC_Data::addDefaults();
         }
+
+        /**
+         * Inserts the default options/settings into the sql table.
+         */
         private static function addDefaults()
         {
             global $wpdb;
@@ -42,6 +55,10 @@ if (!class_exists("BC_Data")) {
                 )
             );
         }
+
+        /**
+         * Initializes the BC_Data class by conditionally executing the setup process, and running a query to get the actual settings from the database.
+         */
         public static function init()
         {
             global $wpdb;
@@ -51,6 +68,12 @@ if (!class_exists("BC_Data")) {
             $opsStr = $wpdb->get_results("SELECT value FROM wp_business_calculator WHERE setting='bcs__options'");
             BC_Data::$options = new BC_Options($opsStr[0]->value);
         }
+
+        /**
+         * Saves the new options with the provided post message into the database.
+         * @param mixed $postRequest The POST-request from the plugin's settings page
+         * @return array|null Either returns the new options as an associative array, or null on db-insertion failure 
+         */
         public static function saveOptions($postRequest): array | null{
             global $wpdb;
             if(!isset(BC_Data::$options)) BC_Data::init();

@@ -3,6 +3,10 @@
 This WordPress plugin is an easy-to-use, easy-to-install marketing-calculator. After its activation, it can be displayed on any wp-preprocessed page with the shortcode `[business-calculator]`. or by calling the `do_shortcode()` php-directive. 
 **The Minimum required PHP version is 8.0**.
 
+This plugin has the following dependencies, all of which are packed with the plugin:
+- FontAwesome 6 Pro or later (css + webfonts)
+- Bootstrap 5.0.2 (js+css)
+
 The plugin is basically a wp-wrapper for the original js library, also written by me. Its specification can be found below.
 
 # \[JS-Lib\]

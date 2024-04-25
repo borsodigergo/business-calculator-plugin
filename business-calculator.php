@@ -23,7 +23,7 @@ if(!class_exists("BusinessCalculator")){
          * We start our class by calling the init() function, which then prepares the class for shortcode usage
          */
         public static function init(){
-            if(!BusinessCalculator::checkCoreFile(BC_LOCATION . "/css/all.min.css") || !BusinessCalculator::checkCoreFile(BC_LOCATION . "/css/calculator.css") || !BusinessCalculator::checkCoreFile(BC_LOCATION . "/css/bootstrap.min.css") || !BusinessCalculator::checkCoreFile(BC_LOCATION . "/js/bootstrap.bundle.min.js") || !BusinessCalculator::checkCoreFile(BC_LOCATION . "/pages/bc__settings.php") || !BusinessCalculator::checkCoreFile(BC_LOCATION . "/utils/BC_Data.php")){
+            if(!BusinessCalculator::checkCoreFile(BC_LOCATION . "/css/all.min.css") || !BusinessCalculator::checkCoreFile(BC_LOCATION . "/css/calculator.min.css") || !BusinessCalculator::checkCoreFile(BC_LOCATION . "/css/bootstrap.min.css") || !BusinessCalculator::checkCoreFile(BC_LOCATION . "/js/bootstrap.bundle.min.js") || !BusinessCalculator::checkCoreFile(BC_LOCATION . "/js/calculator.min.js") || !BusinessCalculator::checkCoreFile(BC_LOCATION . "/pages/bc__settings.php") || !BusinessCalculator::checkCoreFile(BC_LOCATION . "/utils/BC_Data.php")){
                 return;
             }
             require_once(BC_LOCATION . "/pages/bc__settings.php");
@@ -36,6 +36,10 @@ if(!class_exists("BusinessCalculator")){
             BC_Data::init();
         }
 
+        /**
+         * This function is run upon opening the admin settings page for the plugin. It includes the bootstrap files.
+         * @param mixed $hook The page suffix which is opened.
+         */
         public static function addAdminScripts($hook){
             global $bc___settings_page_hook_suffix;
             if( $hook != $bc___settings_page_hook_suffix )
@@ -84,23 +88,39 @@ if(!class_exists("BusinessCalculator")){
 
         }
 
+        /**
+         * Displays the settings frontend, when the page is opened.
+         */
         public static function displaySettingsPage(){
             BC__Settings::display(BC_Data::$options);
         }
+
+        /**
+         * This function is run upon opening a public page with the shortcode on it. It includes all the necessary js and css files in order for the calculator to operate (except the main js file, which is included next to the shortcode to fix race conditions).
+         */
         public static function includeFrontend(){
-            wp_enqueue_style ('bc__core_css',  plugin_dir_url( __FILE__ ) . 'css/calculator.css', array());
+            wp_enqueue_style ('bc__core_css',  plugin_dir_url( __FILE__ ) . 'css/calculator.min.css', array());
             wp_enqueue_style ('bc__fontawesome_6',  plugin_dir_url( __FILE__ ) . 'css/all.min.css', array());
             wp_enqueue_style ('bc__bootstrap',  plugin_dir_url( __FILE__ ) . 'css/bootstrap.min.css', array());
         }
+
+        /**
+         * Displays the code for the calculator where the shortcode is placed.
+         */
         public static function displayCalculator(){
             add_action("wp_enqueue_scripts", "BusinessCalculator::includeFrontend");
             $output = "";
-            $output .= '<div class="business-calculator"></div><script src="'.plugin_dir_url( __FILE__ ).'js/calculator.js"></script><script>const BC = new BusinessCalculator({root: document.querySelector("div.business-calculator"),';
+            $output .= '<div class="business-calculator"></div><script src="'.plugin_dir_url( __FILE__ ).'js/calculator.min.js"></script><script>const BC = new BusinessCalculator({root: document.querySelector("div.business-calculator"),';
             $output .= BusinessCalculator::loopThroughObject(BC_Data::$options);
 
             $output .= '}); BC.init(); </script>';
             return $output;
         }
+
+        /**
+         * Recursive function to iterate through the options json object queried from the database.
+         * @param mixed $object The object to loop through
+         */
         private static function loopThroughObject(mixed $object){
             $output = "";
             if(is_array($object)){
@@ -152,7 +172,12 @@ if(!class_exists("BusinessCalculator")){
             
             return $output;
         }
-        private static function checkAllChildrenNull($object){
+
+        /**
+         * Recursively checks if all the properties of the given object are null.
+         * @param object $object The object to iterate through
+         */
+        private static function checkAllChildrenNull(object $object){
             foreach(get_object_vars($object) as $key => $var){
                 
                 if(is_object($var)){

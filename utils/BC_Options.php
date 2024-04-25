@@ -2,6 +2,10 @@
 
 if(!class_exists("BC_Options")){
     require_once(BC_LOCATION . "/utils/BC_Currency_Orientation.php");
+
+    /**
+     * This class is responsible for providing an object, that is capable of holding the plugin's options
+     */
     class BC_Options implements \JsonSerializable{
         public ?string $heading = "";
         public ?string $currency = "";
@@ -10,6 +14,10 @@ if(!class_exists("BC_Options")){
         public object $input;
         public object $output;
 
+        /**
+         * Creates all the sub-properties for the class, and the parses the provided json literal.
+         * @param string $jsonLiteral A string derived from the json_decode() function.
+         */
         public function __construct(string $jsonliteral) {
             //echo "literal: " . $jsonliteral . "<br><br>";
             $object = json_decode($jsonliteral, false, 512, JSON_PARTIAL_OUTPUT_ON_ERROR | JSON_THROW_ON_ERROR);
